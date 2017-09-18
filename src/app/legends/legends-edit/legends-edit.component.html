@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <form (ngSubmit)="onSubmit()" [formGroup]="editForm">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" formControlName="title" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="imagePath">Image Path</label>
+        <input type="text" id="imagePath" formControlName="imagePath" class="form-control">
+        <span class="help-block">Image hosting not provided. Please provide link or visit my Flickr of Mission photography.</span>
+      </div>
+      <div class="form-group">
+        <label for="story">Legend</label>
+        <textarea rows="15" id="story" formControlName="story" class="form-control"></textarea>
+      </div>
+      <p>
+        <button class="btn btn-success" type="submit" [disabled]="!editForm.valid">Submit</button>
+        <button class="btn btn-primary" type="button" routerLink="../">Back</button>
+      </p>
+    </form>
+  </div>
+</div>
+<br>

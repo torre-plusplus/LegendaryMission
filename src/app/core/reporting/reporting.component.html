@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form (ngSubmit)="submitReport(f)" #f="ngForm">
+        <div class="form-group">
+          <label for="report">Issue Reporting</label>
+          <textarea rows="5" id="report" name="report" ngModel class="form-control" required></textarea>
+          <span class="help-block">Please enter issue to be reported. It will be filed with your username and contact information. If a response is requested, you will contacted via email. </span>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Report</button>
+      </form>
+    </div>
+  </div>
+</div> 

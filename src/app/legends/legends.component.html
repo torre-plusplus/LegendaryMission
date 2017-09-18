@@ -1,0 +1,24 @@
+<div class="container">
+  <header class="jumbotron">
+    <div class="container">
+        <div >
+          <h1>Legendary Mission, KS.</h1>
+          <p>Locally sourced creative writing.</p>
+        </div>
+      <p>
+        <button
+          class="btn btn-primary btn-lg" 
+          routerLink="/legends/new"
+          [disabled]="!isAuthenticated()">Add New Legend</button>
+        <span class="help-block" *ngIf="!isAuthenticated()"><h5>Please login to add a new legend.</h5></span>
+
+        <!-- <button
+          class="btn btn-warning btn-lg" 
+          (click)="seedDb()"
+          [disabled]="!isAuthenticated()">Seed Database</button> -->
+      </p>
+    </div>
+  </header>
+
+  <router-outlet></router-outlet>
+</div>

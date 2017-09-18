@@ -1,0 +1,79 @@
+
+<div class="container">
+  <div class="row">
+    <!--SIDEBAR-->
+    <div class="col-md-3 col-sm-3 hidden-xs">
+      <p class="lead">Other Legends: </p>
+      <div class="list-group">
+        <li class="list-group-item hover-highlight" style="cursor: pointer; margin-bottom: 5px" (click)="decrementSidebarIndex()">
+          <span class="glyphicon glyphicon-menu-up" style="width: 100%; text-align: center"></span>
+        </li>
+        <div *ngFor="let legend of legends; let i = index" >
+        <li
+          
+          *ngIf="i >= sidebarIndex && i < sidebarIndex + 5"
+          class="list-group-item" 
+          routerLinkActive="active"
+          routerLink="/legends/{{legend.id}}"
+          style="cursor: pointer; height: 100px;">
+           <p> {{legend.title}} </p>
+           <!-- <hr> -->
+           <p class="hidden-sm"> by {{legend.username}}</p>
+         </li>
+        </div>
+        <li class="list-group-item text-centered hover-highlight" style="cursor: pointer; margin-top: 5px" (click)="incrementSidebarIndex()">
+          <span class="glyphicon glyphicon-menu-down" style="width: 100%; text-align: center"></span>
+        </li>
+      </div>
+    </div>
+
+    <!-- LEGEND DETAILS -->
+    <div class="col-md-9 col-sm-9">
+      <div class="thumbnail">
+        <img class="img-responsive" src={{legend.imagePath}}>
+        <div class="caption-full">
+          <div>
+            <span>
+              <h3  style="display: inline-block;">{{legend.title}}</h3>
+              <h4 class="hidden-xs pull-right" style="display: inline-block; margin-top: 28px"> {{legend.date | date: 'mediumDate'}}.</h4>
+              <h4 class="hidden-sm hidden-md hidden-lg" > {{legend.date | date: 'mediumDate'}}.</h4>
+            </span>
+          </div>
+          <p style="white-space: pre-line;">{{legend.story}}</p>
+          <p>
+          <em>Submitted by {{legend.username}}</em>
+          </p>
+        </div>
+        <button class="btn-warning btn" *ngIf="canEdit" routerLink="edit">Edit Legend</button>
+        <button class="btn-danger btn" *ngIf="canEdit" (click)="onDelete()">Delete Legend</button>
+      </div>
+
+      <!-- COMMENTS -->
+      <div class="well">
+        <div class="text-right">
+          <form #cf="ngForm" (ngSubmit)="postNewComment(cf)">
+            <!-- <button
+              type="button" 
+              class="btn btn-primary"
+              (click)="seedComments()"
+              [disabled]="!canComment">Seed Comments</button> -->
+            <button [disabled]="!cf.valid || !canComment" type="submit" class="btn btn-success">Post New Comment</button>
+            <span class="help-block" *ngIf="!canComment"><h5>Please login to comment.</h5></span>
+            <textarea ngModel name="comment" style="width: 100%; height: 100%; margin-top: 6px;" placeholder="Enter New Comment" class="form-control" required></textarea>
+          </form>
+        </div>
+        <div *ngFor="let comment of comments"
+        class="row">
+          <hr style="height:1px;border:none;color:#333;background-color:#333;">
+          <div class="col-md-12">
+            <strong>{{comment.username}}</strong>
+            <span class="pull-right">{{comment.date | date: 'mediumDate'}}</span>
+            <p style="white-space: pre-line">
+            {{comment.comment}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
