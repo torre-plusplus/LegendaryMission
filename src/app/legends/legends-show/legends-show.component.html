@@ -34,7 +34,19 @@
         <div class="caption-full">
           <div>
             <span>
-              <h3  style="display: inline-block;">{{legend.title}}</h3>
+              <h2 style="display: inline-block">
+                <i *ngIf="!userStarred" class="glyphicon glyphicon-heart-empty" style="display: inline-block; color: #18bc9c;margin-left: 10px; cursor: pointer;" (click)="userStars()"></i>
+                <i *ngIf="userStarred" class="glyphicon glyphicon-heart" style="display: inline-block; color: #18bc9c;margin-left: 10px; cursor: pointer;" (click)="userUnstars()"></i>
+               {{legend.stars}} 
+              </h2>
+              <span class="help-block" *ngIf="!canComment">
+                <a routerLink="/signin">Please login to heart.</a>
+              </span>
+            </span>
+          </div>
+          <div>
+            <span>
+              <h3  style="display: inline-block;"><strong>{{legend.title}}</strong></h3>
               <h4 class="hidden-xs pull-right" style="display: inline-block; margin-top: 28px"> {{legend.date | date: 'mediumDate'}}.</h4>
               <h4 class="hidden-sm hidden-md hidden-lg" > {{legend.date | date: 'mediumDate'}}.</h4>
             </span>
@@ -44,21 +56,18 @@
           <em>Submitted by {{legend.username}}</em>
           </p>
         </div>
-        <button class="btn-warning btn" *ngIf="canEdit" routerLink="edit">Edit Legend</button>
-        <button class="btn-danger btn" *ngIf="canEdit" (click)="onDelete()">Delete Legend</button>
+        <button class="btn-success btn" *ngIf="canEdit" routerLink="edit">Edit Legend</button>
+        <button class="btn-success btn" *ngIf="canEdit" (click)="onDelete()">Delete Legend</button>
       </div>
 
       <!-- COMMENTS -->
       <div class="well">
         <div class="text-right">
           <form #cf="ngForm" (ngSubmit)="postNewComment(cf)">
-            <!-- <button
-              type="button" 
-              class="btn btn-primary"
-              (click)="seedComments()"
-              [disabled]="!canComment">Seed Comments</button> -->
-            <button [disabled]="!cf.valid || !canComment" type="submit" class="btn btn-success">Post New Comment</button>
-            <span class="help-block" *ngIf="!canComment"><h5>Please login to comment.</h5></span>
+            <button [disabled]="!cf.valid || !canComment" type="submit" class="btn btn-primary">Post New Comment</button>
+            <span class="help-block" *ngIf="!canComment">
+              <a routerLink="/signin">Please login to comment.</a>
+            </span>
             <textarea ngModel name="comment" style="width: 100%; height: 100%; margin-top: 6px;" placeholder="Enter New Comment" class="form-control" required></textarea>
           </form>
         </div>

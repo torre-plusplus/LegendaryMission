@@ -9,16 +9,18 @@ import * as firebase from 'firebase';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor() {}
-
-  title = 'app';
-
-  ngOnInit() {
+  constructor() {
     firebase.initializeApp({
       apiKey: "AIzaSyB6bqX3lsQyyA94lkX2hZD6kNFzLXUSsMo",
       authDomain: "legendary-mission.firebaseapp.com",
       databaseURL: "https://legendary-mission.firebaseio.com"
     });
+  }
+
+  title = 'app';
+
+  ngOnInit() {
+    
     
 
   }}

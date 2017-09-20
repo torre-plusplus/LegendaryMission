@@ -1,10 +1,9 @@
 <div class="container">
   <div class="row">
     <h1> <strong> {{ username }} </strong> </h1>
-    <h1> THIS PAGE IS UNDERCONSTRUCTION UNTIL UPVOTING IS IMPLEMENTED! SORRY! -MGMT</h1>
   </div>
   <div class="row">
-    <div class="col-md-4 col-sm-4 hidden-xs">
+    <div class="col-md-6 col-sm-6 col-xs-6">
       <p class="lead"> {{ username }}'s Legends: </p>
       <ul class="list-group">
         <li
@@ -18,13 +17,24 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-4 col-sm-4">
-      <p>Email</p>
+    <!-- <div class="col-md-4 col-sm-4">
+      <p>Email: {{ userEmail }} </p>
       <p>Update Password</p>
       <p>Add Profile Picture</p>
-    </div>
-    <div class="col-md-4 col-sm-4">
-      <p>Stars!</p>
+    </div> -->
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <p class="lead"> {{ username }}'s Hearted Legends: </p>
+      <ul class="list-group">
+        <li
+          *ngFor="let legend of starredLegends"
+         class="list-group-item" 
+         style="cursor: pointer"
+         routerLink="/legends/{{legend.id}}">
+            <p> {{legend.title}} </p>
+            <p> by {{legend.username}}</p>
+            <img style="max-width: 100px" class="img-responsive" src={{legend.imagePath}}>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

@@ -13,6 +13,7 @@ export class UserComponent implements OnInit {
 
   username: string;
   userLegends: Legend[] = [];
+  starredLegends: Legend[] = [];
   userEmail: string;
 
   constructor(private authService: AuthService,
@@ -22,6 +23,10 @@ export class UserComponent implements OnInit {
     this.username = this.authService.username;
     this.userEmail = this.authService.userEmail;
     this.userLegends = this.legendsService.getLegendsByUsername(this.username);
+    for(let star of this.authService.userStars){
+      const legend = this.legendsService.getLegend(star);
+      this.starredLegends.push(legend);
+    }
   }
 
 }

@@ -7,8 +7,14 @@
       </div>
       <div class="form-group">
         <label for="imagePath">Image Path</label>
-        <input type="text" id="imagePath" formControlName="imagePath" class="form-control">
+        <input type="text" id="imagePath" formControlName="imagePath" class="form-control" #imagePath>
         <span class="help-block">Image hosting not provided. Please provide link or visit my Flickr of Mission photography.</span>
+      </div>
+      <div class="form-group">
+        <label>Image Preview</label>
+        <div *ngIf="imagePath.value" class="thumbnail" style="max-width: 200px;">
+          <img [src]="imagePath.value" class="img-responsive">
+        </div>
       </div>
       <div class="form-group">
         <label for="story">Legend</label>

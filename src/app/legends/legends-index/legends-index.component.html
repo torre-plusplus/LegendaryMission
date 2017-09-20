@@ -2,7 +2,7 @@
   <div ></div>
   <div class="col-md-8 col-xs-9 col-sm-8 col-md-offset-1 col-sm-offset-1">
     <div class="input-group">
-      <input type="text" class="form-control" ngModel (ngModelChange)="filterLegends($event)">
+      <input type="text" class="form-control" ngModel placeholder="Search" (ngModelChange)="filterLegends($event)">
       <span class="input-group-addon">
         <i class="glyphicon glyphicon-search"></i>
       </span>
@@ -22,12 +22,12 @@
   </div>
 </div>
 
-
 <hr>
 
-<!-- Output Legends into 4 single columns to get Masonry style display. Distorts sorting on less than 4 column displays. Refactor to pack columns based on screen size. -->
-<div class="row text-center">    
-  <div class="col-md-3 col-sm-6">
+<!-- REFACTOR ALL DISPLAYS TO USE NGIF BASED ON WINDOW SIZE -->
+<!-- DISPLAY FOR MD-LG DEVICES (4 Columns) -->
+<div class="row text-center hidden-xs hidden-sm">    
+  <div class="col-md-3">
     <div *ngFor="let legend of filteredLegends; let i = index">
       <div *ngIf="i % 4 == 0">
         <div class="thumbnail hover-highlight" routerLink="/legends/{{ legend.id }}" (click)="adjustScroll()">
@@ -42,7 +42,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3 col-sm-6">
+  <div class="col-md-3">
     <div *ngFor="let legend of filteredLegends; let i = index">
       <div *ngIf="i % 4 == 1">
         <div class="thumbnail hover-highlight" routerLink="/legends/{{ legend.id }}" (click)="adjustScroll()">
@@ -57,7 +57,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3 col-sm-6">
+  <div class="col-md-3">
     <div *ngFor="let legend of filteredLegends; let i = index">
       <div *ngIf="i % 4 == 2">
         <div class="thumbnail hover-highlight" routerLink="/legends/{{ legend.id }}" (click)="adjustScroll()">
@@ -72,7 +72,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3 col-sm-6">
+  <div class="col-md-3">
     <div *ngFor="let legend of filteredLegends; let i = index">
       <div *ngIf="i % 4 == 3">
         <div class="thumbnail hover-highlight" routerLink="/legends/{{ legend.id }}" (click)="adjustScroll()">
@@ -89,3 +89,52 @@
   </div>
 </div>
 
+<!-- DISPLAY FOR SM DEVICES (2 COLUMNS) -->
+<div class="row text-center hidden-xs hidden-md hidden-lg">    
+  <div class="col-sm-6">
+    <div *ngFor="let legend of filteredLegends; let i = index">
+      <div *ngIf="i % 2 == 0">
+        <div class="thumbnail hover-highlight" routerLink="/legends/{{ legend.id }}" (click)="adjustScroll()">
+
+        <div class="caption">
+            <h4> <strong>{{ legend.title }} </strong></h4>
+            <p> <em> by {{ legend.username }} </em> </p>
+        </div>
+          <img src="{{ legend.imagePath }}"
+            class="img-responsive">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div *ngFor="let legend of filteredLegends; let i = index">
+      <div *ngIf="i % 2 == 1">
+        <div class="thumbnail hover-highlight" routerLink="/legends/{{ legend.id }}" (click)="adjustScroll()">
+
+        <div class="caption">
+            <h4> <strong>{{ legend.title }} </strong></h4>
+            <p> <em> by {{ legend.username }} </em> </p>
+        </div>
+          <img src="{{ legend.imagePath }}"
+            class="img-responsive">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DISPLAY FOR XS DEVICES -->
+<div class="row text-center hidden-sm hidden-md hidden-lg">    
+  <div class="col-xs-12">
+    <div *ngFor="let legend of filteredLegends">
+      <div class="thumbnail hover-highlight" routerLink="/legends/{{ legend.id }}" (click)="adjustScroll()">
+        <div class="caption">
+            <h4> <strong>{{ legend.title }} </strong></h4>
+            <p> <em> by {{ legend.username }} </em> </p>
+        </div>
+          <img src="{{ legend.imagePath }}"
+            class="img-responsive">
+      </div>
+    </div>
+  </div>
+</div>

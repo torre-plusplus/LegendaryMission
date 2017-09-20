@@ -56,7 +56,7 @@ export class LegendsIndexComponent implements OnInit, OnDestroy {
         this.filteredLegends.sort(compareRecent);
         break;
       case 1:
-        this.filteredLegends.sort(compareRandom);
+        this.filteredLegends.sort(compareStars);
         break;
       case 2:
         this.filteredLegends.sort(compareEldest);
@@ -71,6 +71,9 @@ export class LegendsIndexComponent implements OnInit, OnDestroy {
 
     function compareRecent (a: Legend, b: Legend){
       return a.date <= b.date ? 1 : -1;
+    }
+    function compareStars (a: Legend, b: Legend){
+      return a.stars <= b.stars ? 1 : -1;
     }
     function compareEldest (a: Legend, b: Legend){
       return a.date >= b.date ? 1 : -1;

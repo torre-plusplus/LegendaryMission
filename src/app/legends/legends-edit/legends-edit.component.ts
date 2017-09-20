@@ -17,6 +17,7 @@ export class LegendsEditComponent implements OnInit{
   paramId :string;
   editForm: FormGroup;
   legendDate: number;
+  legendStars: number;
 
 
   constructor(private authService: AuthService, 
@@ -47,6 +48,7 @@ export class LegendsEditComponent implements OnInit{
       imagePath = legend.imagePath;
       story = legend.story;
       this.legendDate = legend.date;
+      this.legendStars = legend.stars;
     }
 
     this.editForm = new FormGroup ({
@@ -67,7 +69,7 @@ export class LegendsEditComponent implements OnInit{
       this.router.navigate(['/legends', id]);  
     }
     else {
-      const legend = new Legend(title, this.paramId, username, imagePath, story, this.legendDate);
+      const legend = new Legend(title, this.paramId, username, imagePath, story, this.legendDate, this.legendStars);
       this.dataService.updateLegend(legend, this.legendsService.getLegendIndex(this.paramId));
       setTimeout(
         () => {this.router.navigate(['../'], {relativeTo: this.route});}, 500

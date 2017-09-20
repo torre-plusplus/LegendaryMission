@@ -10,12 +10,7 @@
           class="btn btn-primary btn-lg" 
           routerLink="/legends/new"
           [disabled]="!isAuthenticated()">Add New Legend</button>
-        <span class="help-block" *ngIf="!isAuthenticated()"><h5>Please login to add a new legend.</h5></span>
-
-        <!-- <button
-          class="btn btn-warning btn-lg" 
-          (click)="seedDb()"
-          [disabled]="!isAuthenticated()">Seed Database</button> -->
+        <span class="help-block" *ngIf="!isAuthenticated()"><h5><a routerLink="/signin">Please login to add a new legend.</a></h5></span>
       </p>
     </div>
   </header>

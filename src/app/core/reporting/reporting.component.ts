@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { AuthService } from '../../auth/auth.service';
+import { DataStorageService } from '../../shared/data-storage.service';
 
 @Component({
   selector: 'app-reporting',
@@ -8,14 +9,19 @@ import { AuthService } from '../../auth/auth.service';
   styleUrls: ['./reporting.component.css']
 })
 export class ReportingComponent implements OnInit {
+  formSubmitted = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private dataService: DataStorageService,
+    private router: Router) { }
 
   ngOnInit() {
   }
 
   submitReport(form: NgForm) {
-    //actually report the form to the DB here. Probably.
+    this.dataService.reportNewIssue(form.value.report);
+    form.reset();
+    this.formSubmitted = true;
+    setTimeout(() => {this.router.navigate(['/legends'])}, 2000);
   }
 
 }

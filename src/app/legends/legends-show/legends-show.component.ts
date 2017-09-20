@@ -23,6 +23,7 @@ export class LegendsShowComponent implements OnInit, OnDestroy {
   commentSubscription: Subscription;
   legends: Legend[] = [];
   sidebarIndex:number = 0;
+  userStarred = false;
 
   constructor(private legendsService: LegendsService,
     private authService: AuthService,
@@ -33,6 +34,7 @@ export class LegendsShowComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(
       (params: Params) => {
         this.canEdit = false;
+        this.userStarred = false;
         this.id = params['id'];
         this.legend = this.legendsService.getLegend(this.id);
         if(this.legend) {
@@ -42,12 +44,12 @@ export class LegendsShowComponent implements OnInit, OnDestroy {
           }
           if(this.authService.username) {
             this.canComment = true;
+            this.userStarred = this.authService.userStars.includes(this.id);
           }
           let index = this.legendsService.getLegendIndex(this.legend.id);
           this.sidebarIndex = Math.floor(index/5) * 5;
         }
         if(!this.legend) {
-          console.log("rerouting");
           this.router.navigate(['/not-found']);
         }
       }
@@ -69,10 +71,6 @@ export class LegendsShowComponent implements OnInit, OnDestroy {
     this.router.navigate(['edit'], {relativeTo: this.route});
   }
 
-  seedComments() {
-    this.dataService.seedComments(this.id);
-  }
-
   postNewComment(commentForm: NgForm) {
     this.dataService.pushNewComment(this.id, commentForm.value.comment);
     commentForm.reset();
@@ -89,6 +87,22 @@ export class LegendsShowComponent implements OnInit, OnDestroy {
     this.sidebarIndex += 5;
     if(this.sidebarIndex > this.legends.length) {
       this.sidebarIndex -= 5;
+    }
+  }
+
+  userStars(){
+    if(this.canComment) {
+      this.legend.stars++;
+      this.userStarred = true;
+      this.dataService.upvoteLegend(this.legend.id);
+    }
+  }
+
+  userUnstars() {
+    if(this.canComment) {
+      this.legend.stars--;
+      this.userStarred = false;
+      this.dataService.downvoteLegend(this.legend.id);
     }
   }
 

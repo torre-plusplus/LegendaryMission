@@ -6,9 +6,11 @@ import { Injectable } from '@angular/core';
 @Injectable()
 
 export class AuthService {
+  database = firebase.database();
   token: string;
   username: string;
   userEmail: string;
+  userStars: string[] = [];
 
   constructor(private router: Router) {
 
@@ -27,7 +29,10 @@ export class AuthService {
             {displayName: username, photoURL: null}
           )
             .then(
-              () => { this.username = username }
+              () => { 
+                this.username = username;
+                this.getStars();
+              }
             )
             .catch(
               error => console.log(error)
@@ -51,6 +56,7 @@ export class AuthService {
           const userData = firebase.auth().currentUser;
           this.username = userData.displayName;
           this.userEmail = userData.email;
+          this.getStars();
         }
       )
       .catch(
@@ -64,6 +70,23 @@ export class AuthService {
         (token: string) => this.token = token
       );
     return this.token;
+  }
+
+  getStars() {
+    if(!this.username){
+      return null;
+    }
+    this.database.ref('/users/' + this.username + '/starred').once('value')
+      .then( (stars) => {
+        if(!stars.val()) {
+          return
+        }
+        else {
+          stars.forEach((returnedStar) => {
+            this.userStars.push(returnedStar.val());
+          })
+        }
+      })
   }
 
   isAuthenticated() {
@@ -81,5 +104,6 @@ export class AuthService {
       );
     this.token = null;
     this.username = null;
+    this.userStars = [];
   }
 }
