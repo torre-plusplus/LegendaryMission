@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AuthService } from '../auth/auth.service';
 import { LegendsService } from '../legends/legends.service';
 import { DataStorageService } from '../shared/data-storage.service';
+import { AlertService } from '../shared/alert.service';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ReportingComponent } from './reporting/reporting.component';
@@ -40,7 +41,8 @@ import { TodoComponent } from './todo/todo.component';
   providers: [
     AuthService,
     LegendsService,
-    DataStorageService
+    DataStorageService,
+    AlertService
   ]
 })
 

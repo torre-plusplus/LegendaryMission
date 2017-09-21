@@ -6,6 +6,7 @@ import 'rxjs/Rx';
 
 import { LegendsService } from '../legends/legends.service';
 import { AuthService } from '../auth/auth.service';
+import { AlertService } from './alert.service';
 import { Legend } from '../legends/legends.model';
 import { Comment } from './comment.model';
 
@@ -16,7 +17,8 @@ export class DataStorageService {
   commentsChanged = new Subject<Comment[]>();
 
   constructor( private legendsService: LegendsService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private alertService: AlertService) {
     //pulls data from server on initialization.
     this.getLegends();
   }
@@ -24,16 +26,16 @@ export class DataStorageService {
   pushNewLegend(title: string, username: string, imagePath: string, story: string) {
     const date = Date.now();
     const stars = 0;
-    const legendId: string = this.database.ref('/legends').push({
-      title: title,
-      username: username,
-      imagePath: imagePath,
-      story: story,
-      date: date,
-      stars : stars
-    }).key;
+    //GET UNIQUE LEGEND ID FROM DB
+    const legendId: string = this.database.ref('/legends').push().key;
+    const newLegend = new Legend(title, legendId, username, imagePath, story, date, stars);
+
+    //STORE NEW LEGEND UNDER DB ID
+    this.database.ref('/legends/' + legendId).set(newLegend)
+      //.then( () => this.alertService.successAlert("Legend Added!"))
+      .catch( error => this.alertService.errorAlert(error.message));
     
-    this.legendsService.addLegend(new Legend(title, legendId, username, imagePath, story, date, stars));
+    this.legendsService.addLegend(newLegend);
 
     return legendId;
   }
@@ -41,13 +43,22 @@ export class DataStorageService {
   updateLegend(updatedLegend: Legend, index: number) {
     this.database.ref('/legends/' + updatedLegend.id).set(updatedLegend)
       .then(
-        () => {this.legendsService.updateLegend(updatedLegend, index)}
-      );
+        () => {
+          //this.alertService.successAlert("Legend Added!");
+          this.legendsService.updateLegend(updatedLegend, index);
+        }
+      )
+      .catch( error => this.alertService.errorAlert(error.message));
   }
 
   deleteLegend(legendId: string, index: number) {
     this.database.ref('/legends/' + legendId).remove()
-      .then(() => this.legendsService.deleteLegend(index));    
+      .then(() => {
+        this.alertService.successAlert("Legend Deleted.")
+        this.legendsService.deleteLegend(index);
+      })
+      .catch( error => this.alertService.errorAlert(error.message));
+          
   }
 
   getLegends() { 
@@ -66,8 +77,10 @@ export class DataStorageService {
           legends.push(legend);
         })
       })
-      .then( () => this.legendsService.setLegends(legends))
-     ;
+      .then( 
+        () => this.legendsService.setLegends(legends)
+      )
+      .catch( error => this.alertService.errorAlert(error.message));
   }
 
   upvoteLegend(legendId: string) {
@@ -140,7 +153,8 @@ export class DataStorageService {
       username : username,
       date : date,
       issue : issue
-    });
+    })
+    .catch( error => this.alertService.errorAlert(error.message));
   }
 
   getUserStars(username: string) {

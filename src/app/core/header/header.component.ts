@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../../auth/auth.service';
+import { AlertService } from '../../shared/alert.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -8,9 +10,14 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   username: string;
-  greeting: string = "Menu"
+  greeting = "Menu"
+  errorSubscription: Subscription;
+  successSubscription: Subscription;
+  successAlert: string;
+  errorAlert: string;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+    private alertService: AlertService) { }
 
   isAuthenticated(){
     this.username = this.authService.username;
@@ -26,6 +33,29 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.successSubscription = this.alertService.newSuccessAlert
+      .subscribe(
+        (alert: string) => {
+          this.successAlert = alert;
+          setTimeout( () => {
+            this.successAlert = null;
+          }, 5000)
+        }
+      );
+    this.errorSubscription = this.alertService.newErrorAlert
+      .subscribe(
+        (alert: string) => {
+          this.errorAlert = alert;
+          setTimeout( () => {
+            this.errorAlert = null;
+          }, 5000)
+        }
+      )
+  }
+
+  ngOnDestroy() {
+    this.successSubscription.unsubscribe();
+    this.errorSubscription.unsubscribe();
   }
 
 }

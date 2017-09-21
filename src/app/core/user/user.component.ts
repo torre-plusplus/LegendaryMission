@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { Legend } from '../../legends/legends.model';
 import { AuthService } from '../../auth/auth.service';
@@ -15,6 +16,8 @@ export class UserComponent implements OnInit {
   userLegends: Legend[] = [];
   starredLegends: Legend[] = [];
   userEmail: string;
+  showPasswordUpdate = false;
+  alertText = "";
 
   constructor(private authService: AuthService,
     private legendsService: LegendsService) { }
@@ -27,6 +30,18 @@ export class UserComponent implements OnInit {
       const legend = this.legendsService.getLegend(star);
       this.starredLegends.push(legend);
     }
+  }
+
+  toggleShowPasswordUpdate() {
+    this.showPasswordUpdate = !this.showPasswordUpdate;
+  }
+
+  //ADD AUTH LOGIC HERE!
+  onChangePassword(form: NgForm){
+    const currentPassword =  form.value.currentPassword;
+    const newPassword = form.value.newPassword;
+    this.authService.changePassword(currentPassword, newPassword);
+    form.resetForm();
   }
 
 }

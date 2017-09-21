@@ -50,3 +50,22 @@
     </div>
   </div>
 </nav>
+
+<!-- ALERT NOTIFICATIONS UNDER NAVBAR -->
+<br class="hidden-sm hidden-md hidden-lg">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div  *ngIf="successAlert" class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="alert alert-success" role="alert">{{ successAlert }}</div>
+        </div>
+      </div>
+      <div  *ngIf="errorAlert" class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="alert alert-danger" role="alert">{{ errorAlert }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
