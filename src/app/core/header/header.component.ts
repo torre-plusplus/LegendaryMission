@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   successSubscription: Subscription;
   successAlert: string;
   errorAlert: string;
+  infoAlert = "For those reviewing this application, please feel free to log in as Nibbler instead of creating a new account. ( nibs@nibs.com / nibbler )"
 
   constructor(private authService: AuthService,
     private alertService: AlertService) { }

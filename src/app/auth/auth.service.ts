@@ -146,5 +146,9 @@ export class AuthService {
     this.token = null;
     this.username = null;
     this.userStars = [];
+    if (this.router.url == "/user") {
+      this.router.navigate(['/legends']);
+      this.alertService.errorAlert("Rerouted: Must be authenticated for User Settings.")
+    }
   }
 }

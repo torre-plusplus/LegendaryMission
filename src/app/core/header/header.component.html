@@ -56,6 +56,11 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
+      <div  *ngIf="!isAuthenticated()" class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="alert alert-success hover-highlight" role="alert" routerLink="/signin"> {{ infoAlert }} </div>
+        </div>
+      </div>
       <div  *ngIf="successAlert" class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="alert alert-success" role="alert">{{ successAlert }}</div>
