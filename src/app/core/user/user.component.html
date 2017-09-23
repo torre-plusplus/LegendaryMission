@@ -27,7 +27,8 @@
               <label for="newPassword">New Password</label>
               <input type="password" id="newPassword" name="newPassword" ngModel class="form-control" required>
             </div>
-            <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button>
+            <button class="btn btn-primary" type="submit" [disabled]="!f.valid || username == 'nibbler'">Submit</button>
+            <span class="help-block" *ngIf="username == 'nibbler'"><h5>To maintain access for all reviewers, this user's (nibbler) password cannot be changed. </h5></span>
           </form>
         </div>
       </div>

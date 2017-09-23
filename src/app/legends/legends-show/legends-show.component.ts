@@ -85,7 +85,7 @@ export class LegendsShowComponent implements OnInit, OnDestroy {
 
   incrementSidebarIndex(){
     this.sidebarIndex += 5;
-    if(this.sidebarIndex > this.legends.length) {
+    if(this.sidebarIndex >= this.legends.length) {
       this.sidebarIndex -= 5;
     }
   }

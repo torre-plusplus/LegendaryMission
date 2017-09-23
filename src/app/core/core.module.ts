@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -31,7 +32,8 @@ import { TodoComponent } from './todo/todo.component';
   imports: [
     SharedModule,
     FormsModule,
-    CoreRouting
+    CoreRouting,
+    BrowserAnimationsModule
   ],
   exports: [
     HeaderComponent,

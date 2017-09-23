@@ -54,22 +54,23 @@
 <!-- ALERT NOTIFICATIONS UNDER NAVBAR -->
 <br class="hidden-sm hidden-md hidden-lg">
 <div class="container">
+  <div  *ngIf="!isAuthenticated() && !successAlert && !errorAlert" class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="alert alert-success hover-highlight" role="alert" routerLink="/signin" [@alertAnimation]> {{ infoAlert }} </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="position: fixed; top: 80px; z-index: 999; width: 75%; left: 50%; margin-left: -37.5%;">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-      <div  *ngIf="!isAuthenticated()" class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="alert alert-success hover-highlight" role="alert" routerLink="/signin"> {{ infoAlert }} </div>
-        </div>
+    <div  *ngIf="successAlert" class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="alert alert-success" role="alert" [@alertAnimation]="present">{{ successAlert }}</div>
       </div>
-      <div  *ngIf="successAlert" class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="alert alert-success" role="alert">{{ successAlert }}</div>
-        </div>
-      </div>
-      <div  *ngIf="errorAlert" class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="alert alert-danger" role="alert">{{ errorAlert }}</div>
-        </div>
+    </div>
+    <div  *ngIf="errorAlert" class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="alert alert-danger" role="alert" [@alertAnimation]>{{ errorAlert }}</div>
       </div>
     </div>
   </div>

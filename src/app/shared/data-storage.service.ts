@@ -32,11 +32,12 @@ export class DataStorageService {
 
     //STORE NEW LEGEND UNDER DB ID
     this.database.ref('/legends/' + legendId).set(newLegend)
-      //.then( () => this.alertService.successAlert("Legend Added!"))
+      .then( () => {
+        this.alertService.successAlert("Legend Added!")
+        this.legendsService.addLegend(newLegend);
+      })
       .catch( error => this.alertService.errorAlert(error.message));
     
-    this.legendsService.addLegend(newLegend);
-
     return legendId;
   }
 
@@ -97,7 +98,7 @@ export class DataStorageService {
       .then(() => {
         this.database.ref('/users/' + username + '/starred/' + legendId).set(legendId);
         this.authService.userStars.push(legendId);
-      })
+      });
   }
 
   downvoteLegend(legendId: string) {
@@ -114,7 +115,7 @@ export class DataStorageService {
         this.database.ref('/users/' + username + '/starred/' + legendId).remove();
         const starIndex = this.authService.userStars.indexOf(legendId);
         this.authService.userStars.splice(starIndex, 1);
-      })
+      });
   }
 
   pushNewComment(legendId: string, comment: string){
@@ -122,11 +123,14 @@ export class DataStorageService {
     const date = Date.now();
     const username = this.authService.username;
     this.database.ref('/comments/' + legendId).child(commentId).set({
-      username : username,
-      date :date,
-      id : commentId,
-      comment : comment
-    });
+        username : username,
+        date :date,
+        id : commentId,
+        comment : comment
+      })
+      .then( 
+        () => this.alertService.successAlert("Comment added."))
+      .catch( error => this.alertService.errorAlert(error.message));
   }
 
   initCommentSubject(legendId: string) {
