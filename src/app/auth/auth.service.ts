@@ -150,5 +150,14 @@ export class AuthService {
       this.router.navigate(['/legends']);
       this.alertService.errorAlert("Rerouted: Must be authenticated for User Settings.")
     }
+    else if (this.router.url == "/legends/new") {
+      this.router.navigate(['/legends']);
+      this.alertService.errorAlert("Rerouted: Must be authenticated to add new legend.")
+    }
+    //SLOPPY WORK AROUND. REPLACE WITH ROUTE PARAMETERS
+    else if (this.router.url.substr(this.router.url.length - 4) == "edit") {
+      this.router.navigate(['/legends']);
+      this.alertService.errorAlert("Rerouted: Must be authenticated to edit legend.")
+    }
   }
 }

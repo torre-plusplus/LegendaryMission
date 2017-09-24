@@ -5,7 +5,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Legend } from '../legends.model';
 import { AuthService } from '../../auth/auth.service';
 import { DataStorageService } from '../../shared/data-storage.service';
+import { AlertService } from '../../shared/alert.service';
 import { LegendsService } from '../legends.service';
+
 
 @Component({
   selector: 'app-legends-edit',
@@ -24,10 +26,10 @@ export class LegendsEditComponent implements OnInit{
     private dataService: DataStorageService,
     private router: Router,
     private route: ActivatedRoute,
-    private legendsService: LegendsService) { }
+    private legendsService: LegendsService,
+    private alertService: AlertService) { }
 
   ngOnInit() {
-    //this.legendsService.loadFullHeader();
     this.route.params.subscribe(
       (params: Params) => {
         this.paramId = params['id'];

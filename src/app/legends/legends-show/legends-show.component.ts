@@ -71,9 +71,15 @@ export class LegendsShowComponent implements OnInit, OnDestroy {
     this.router.navigate(['edit'], {relativeTo: this.route});
   }
 
+  isAuthenticated(){
+    return this.authService.isAuthenticated();
+  }
+
   postNewComment(commentForm: NgForm) {
-    this.dataService.pushNewComment(this.id, commentForm.value.comment);
-    commentForm.reset();
+    if(this.isAuthenticated()){
+      this.dataService.pushNewComment(this.id, commentForm.value.comment);
+      commentForm.reset();
+    }
   }
 
   decrementSidebarIndex(){
@@ -91,7 +97,7 @@ export class LegendsShowComponent implements OnInit, OnDestroy {
   }
 
   userStars(){
-    if(this.canComment) {
+    if(this.isAuthenticated()) {
       this.legend.stars++;
       this.userStarred = true;
       this.dataService.upvoteLegend(this.legend.id);
@@ -99,7 +105,7 @@ export class LegendsShowComponent implements OnInit, OnDestroy {
   }
 
   userUnstars() {
-    if(this.canComment) {
+    if(this.isAuthenticated()) {
       this.legend.stars--;
       this.userStarred = false;
       this.dataService.downvoteLegend(this.legend.id);

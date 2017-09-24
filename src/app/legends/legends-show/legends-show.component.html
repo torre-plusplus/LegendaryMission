@@ -39,7 +39,7 @@
                 <i *ngIf="userStarred" class="glyphicon glyphicon-heart" style="display: inline-block; color: #18bc9c;margin-left: 10px; cursor: pointer;" (click)="userUnstars()"></i>
                {{legend.stars}} 
               </h2>
-              <span class="help-block" *ngIf="!canComment">
+              <span class="help-block" *ngIf="!canComment || !isAuthenticated()">
                 <a routerLink="/signin">Please login to heart.</a>
               </span>
             </span>
@@ -56,8 +56,8 @@
           <em>Submitted by {{legend.username}}</em>
           </p>
         </div>
-        <button class="btn-success btn" *ngIf="canEdit" routerLink="edit">Edit Legend</button>
-        <button class="btn-success btn" *ngIf="canEdit" (click)="onDelete()">Delete Legend</button>
+        <button class="btn-success btn" *ngIf="canEdit && isAuthenticated()" routerLink="edit">Edit Legend</button>
+        <button class="btn-success btn" *ngIf="canEdit && isAuthenticated()" (click)="onDelete()">Delete Legend</button>
       </div>
 
       <!-- COMMENTS -->
@@ -65,7 +65,7 @@
         <div class="text-right">
           <form #cf="ngForm" (ngSubmit)="postNewComment(cf)">
             <button [disabled]="!cf.valid || !canComment" type="submit" class="btn btn-primary">Post New Comment</button>
-            <span class="help-block" *ngIf="!canComment">
+            <span class="help-block" *ngIf="!canComment || !isAuthenticated()">
               <a routerLink="/signin">Please login to comment.</a>
             </span>
             <textarea ngModel name="comment" style="width: 100%; height: 100%; margin-top: 6px;" placeholder="Enter New Comment" class="form-control" required></textarea>
