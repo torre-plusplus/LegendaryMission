@@ -10,7 +10,26 @@ import { AlertService } from '../../shared/alert.service';
   styleUrls: ['./header.component.css'],
   animations: [
     trigger('alertAnimation', [
-      state('present', style({
+      state('successPresent', style({
+        opacity: 1
+      })),
+      transition('void => *', [
+        style({
+          opacity: 0
+        }),
+        animate(500)
+      ]),
+      transition('* => fadeOut', [
+        style({
+          opacity: 1
+        }),
+        animate(500, style({
+          opacity: 0
+        }))
+      ])
+    ]),
+    trigger('alertAnimation', [
+      state('errorPresent', style({
         opacity: 1
       })),
       transition('void => *', [
@@ -37,7 +56,8 @@ export class HeaderComponent implements OnInit {
   successSubscription: Subscription;
   successAlert: string;
   errorAlert: string;
-  present: string;
+  successPresent: string;
+  errorPresent: string;
   infoAlert = "For those reviewing this application, please feel free to log in as Nibbler instead of creating a new account. ( nibs@nibs.com / nibbler )"
 
   constructor(private authService: AuthService,
@@ -61,12 +81,12 @@ export class HeaderComponent implements OnInit {
       .subscribe(
         (alert: string) => {
           this.successAlert = alert;
-          //Work around for known Angular Animations bug on FadeOut + NgIf (apply state and fade prior to dom removal)
+          //Work around for known Angular4 Animations bug on FadeOut + NgIf (apply state and fade prior to dom removal)
           setTimeout( () => {
-            this.present = "fadeOut";
+            this.successPresent = "fadeOut";
             setTimeout( () => {
               this.successAlert = null;
-              this.present = null;
+              this.successPresent = null;
             }, 500)
           }, 2500)
         }
@@ -75,12 +95,12 @@ export class HeaderComponent implements OnInit {
       .subscribe(
         (alert: string) => {
           this.errorAlert = alert;
-          //Work around for known Angular Animations bug on FadeOut + NgIf (apply state and fade prior to dom removal)
+          //Work around for known Angular4 Animations bug on FadeOut + NgIf (apply state and fade prior to dom removal)
           setTimeout( () => {
-            this.present = "fadeOut";
+            this.errorPresent = "fadeOut";
             setTimeout( () => {
               this.errorAlert = null;
-              this.present = null;
+              this.errorPresent = null;
             }, 500)
           }, 2500)
         }

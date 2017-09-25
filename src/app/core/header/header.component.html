@@ -65,12 +65,12 @@
   <div class="row">
     <div  *ngIf="successAlert" class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="alert alert-success" role="alert" [@alertAnimation]="present">{{ successAlert }}</div>
+        <div class="alert alert-success" role="alert" [@alertAnimation]="successPresent">{{ successAlert }}</div>
       </div>
     </div>
     <div  *ngIf="errorAlert" class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="alert alert-danger" role="alert" [@alertAnimation]>{{ errorAlert }}</div>
+        <div class="alert alert-danger" role="alert" [@alertAnimation]="errorPresent">{{ errorAlert }}</div>
       </div>
     </div>
   </div>
