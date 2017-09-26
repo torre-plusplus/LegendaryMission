@@ -9,12 +9,13 @@ import { SigninComponent } from '../auth/signin/signin.component';
 import { UserComponent } from './user/user.component';
 import { ReportingComponent } from './reporting/reporting.component';
 import { TodoComponent } from './todo/todo.component';
+import { AuthGuard } from '../auth/auth-guard.service';
 
 const coreRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'signin', component: SigninComponent },
-  { path: 'user', component: UserComponent },
+  { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'reporting', component: ReportingComponent },
   { path: 'about', component: AboutComponent },
   { path: 'not-found', component: NotFoundComponent },
@@ -28,6 +29,9 @@ const coreRoutes: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    AuthGuard
   ]
 })
 
