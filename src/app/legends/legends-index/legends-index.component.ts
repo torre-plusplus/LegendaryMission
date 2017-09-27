@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { LegendsService } from '../legends.service';
@@ -15,8 +15,17 @@ export class LegendsIndexComponent implements OnInit, OnDestroy {
   legends : Legend[];
   filteredLegends: Legend[];
   subscription : Subscription;
+  windowWidth: number;
 
-  constructor( private legendsService: LegendsService) { }
+  constructor( private legendsService: LegendsService,
+    private ngZone: NgZone) { 
+    this.windowWidth = window.innerWidth;
+    window.onresize = (event) => {
+      ngZone.run(() => {
+        this.windowWidth = window.innerWidth;
+      })
+    }
+  }
 
   ngOnInit() {
     this.subscription = this.legendsService.legendsChanged

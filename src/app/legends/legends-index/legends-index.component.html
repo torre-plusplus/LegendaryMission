@@ -26,7 +26,7 @@
 
 <!-- REFACTOR ALL DISPLAYS TO USE NGIF BASED ON WINDOW SIZE -->
 <!-- DISPLAY FOR MD-LG DEVICES (4 Columns) -->
-<div class="row text-center hidden-xs hidden-sm">    
+<div class="row text-center" *ngIf="windowWidth >= 992">    
   <div class="col-md-3">
     <div *ngFor="let legend of filteredLegends; let i = index">
       <div *ngIf="i % 4 == 0">
@@ -90,7 +90,7 @@
 </div>
 
 <!-- DISPLAY FOR SM DEVICES (2 COLUMNS) -->
-<div class="row text-center hidden-xs hidden-md hidden-lg">    
+<div class="row text-center" *ngIf="windowWidth < 992 && windowWidth >= 768">    
   <div class="col-sm-6">
     <div *ngFor="let legend of filteredLegends; let i = index">
       <div *ngIf="i % 2 == 0">
@@ -124,7 +124,7 @@
 </div>
 
 <!-- DISPLAY FOR XS DEVICES -->
-<div class="row text-center hidden-sm hidden-md hidden-lg">    
+<div class="row text-center" *ngIf="windowWidth < 768">    
   <div class="col-xs-12">
     <div *ngFor="let legend of filteredLegends">
       <div class="thumbnail hover-highlight" routerLink="/legends/{{ legend.id }}" (click)="adjustScroll()">
