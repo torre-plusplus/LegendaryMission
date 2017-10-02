@@ -2,3 +2,48 @@
   border-color: #66afe9;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 } 
+
+.iblock {
+  display: inline-block;
+}
+
+.heart {
+  display: inline-block; 
+  color: #18bc9c;
+  margin-left: 10px;
+}
+
+.fulltext {
+  white-space: pre-line;
+}
+
+.list-group > li:first-of-type {
+  margin-bottom: 5px;
+}
+
+.list-group > li:last-of-type {
+  margin-top: 5px
+}
+
+h4.hidden-xs {
+  margin-top: 28px;
+}
+
+.commentrule {
+  height:1px;
+  border:none;
+  color:#333;
+  background-color:#333;
+}
+
+.glyphicon-menu-up,
+.glyphicon-menu-down {
+  width: 100%;
+  text-align: center;
+}
+
+#comment-text {
+  width: 100%;
+  height: 100%;
+  margin-top: 6px;
+}

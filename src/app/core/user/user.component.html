@@ -40,12 +40,11 @@
       <ul class="list-group">
         <li
           *ngFor="let legend of userLegends"
-         class="list-group-item" 
-         style="cursor: pointer"
+         class="list-group-item pointable" 
          routerLink="/legends/{{legend.id}}">
             <p> {{legend.title}} </p>
             <p> by {{legend.username}}</p>
-            <img style="max-width: 100px" class="img-responsive" src={{legend.imagePath}}>
+            <img class="img-responsive" src={{legend.imagePath}}>
         </li>
       </ul>
     </div>
@@ -65,12 +64,11 @@
       <ul class="list-group">
         <li
           *ngFor="let legend of starredLegends"
-         class="list-group-item" 
-         style="cursor: pointer"
+         class="list-group-item pointable" 
          routerLink="/legends/{{legend.id}}">
             <p> {{legend.title}} </p>
             <p> by {{legend.username}}</p>
-            <img style="max-width: 100px" class="img-responsive" src={{legend.imagePath}}>
+            <img class="img-responsive" src={{legend.imagePath}}>
         </li>
       </ul>
     </div>

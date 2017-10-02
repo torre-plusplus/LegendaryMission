@@ -16,15 +16,15 @@
           <li routerLinkActive="active"><a routerLink="/signin">Login</a></li>
         </ng-template>
         
-        <li><a style="cursor: default; pointer-events: none" *ngIf="isAuthenticated()">Welcome, {{ username }}.</a></li>
-        <li><a style="cursor: pointer;" (click)="logout()" *ngIf="isAuthenticated()">Logout</a></li>
+        <li><a class="welcome-message" *ngIf="isAuthenticated()">Welcome, {{ username }}.</a></li>
+        <li><a class="pointable" (click)="logout()" *ngIf="isAuthenticated()">Logout</a></li>
         <li class="dropdown" appDropdown 
           *ngIf="isAuthenticated()">
-        <a style="cursor: pointer;;" class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
+        <a class="dropdown-toggle pointable" role="button">Manage <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a style="cursor: pointer;" routerLink="/user">User Settings</a></li>
-            <li><a style="cursor: pointer;" routerLink="/reporting">Report Abuse</a></li>
-            <li><a style="cursor: pointer;" routerLink="/reporting">Report Bug</a></li>
+            <li><a class="pointable" routerLink="/user">User Settings</a></li>
+            <li><a class="pointable" routerLink="/reporting">Report Abuse</a></li>
+            <li><a class="pointable" routerLink="/reporting">Report Bug</a></li>
           </ul>
         </li>
       </ul>
@@ -34,7 +34,7 @@
     <div class="navbar-default hidden-sm hidden-md hidden-lg">
       <ul class="nav navbar-nav">
         <li class="dropdown" appDropdown>
-          <a style="cursor: pointer;" class="dropdown-toggle pull-right" role="button">{{ greeting}} <span class="caret"></span>  </a>
+          <a class="dropdown-toggle pull-right pointable" role="button">{{ greeting}} <span class="caret"></span>  </a>
           <ul class="dropdown-menu">
             <li routerLinkActive="active"><a routerLink="/legends">Legends</a></li>
             <li routerLinkActive="active"><a routerLink="/about">About</a></li>
@@ -42,8 +42,8 @@
               <li routerLinkActive="active"><a routerLink="/signup">Register</a></li>
               <li routerLinkActive="active"><a routerLink="/signin">Login</a></li>
             </ng-template>
-            <li><a style="cursor: pointer;" (click)="logout()" *ngIf="isAuthenticated()">Logout</a></li>
-            <li><a style="cursor: pointer;" *ngIf="isAuthenticated()" routerLink="/user">User Settings</a></li>
+            <li><a class="pointable" (click)="logout()" *ngIf="isAuthenticated()">Logout</a></li>
+            <li><a class="pointable" *ngIf="isAuthenticated()" routerLink="/user">User Settings</a></li>
           </ul>
         </li>
       </ul>
@@ -61,7 +61,7 @@
   </div>
 </div>
 
-<div class="container" style="position: fixed; top: 80px; z-index: 999; width: 75%; left: 50%; margin-left: -37.5%;">
+<div class="container alert-container">
   <div class="row">
     <div  *ngIf="successAlert" class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
